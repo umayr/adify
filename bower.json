@@ -1,0 +1,17 @@
+{
+  "name": "adify",
+  "version": "0.0.0",
+  "homepage": "https://github.com/umayr/adify",
+  "authors": [
+    "Umayr Shahid <umayrr@hotmail.co.uk>"
+  ],
+  "description": "Tiny tool to manage your ads",
+  "keywords": [
+    "php",
+    "laravel"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.3.0"
+  }
+}
