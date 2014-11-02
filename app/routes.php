@@ -11,7 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'HomeController@showWelcome');
+
+Route::get('/dashboard', 'DashboardController@index');
+
+// TODO: Input Validation.
+Route::get('/ad/create', 'AdController@create');
+
+
