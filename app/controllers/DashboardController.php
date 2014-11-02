@@ -5,6 +5,9 @@
  * Time     : 7:34 PM
  */
 
-class DashboardController {
+class DashboardController extends BaseController{
 
+    public function index(){
+        return View::make('dashboard.index');
+    }
 } 
