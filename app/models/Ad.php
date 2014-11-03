@@ -5,29 +5,33 @@
  * Time     : 8:11 PM
  */
 
+use Illuminate\Database\Eloquent\Model;
 use Rhumsaa\Uuid\Exception\UnsatisfiedDependencyException;
 use Rhumsaa\Uuid\Uuid;
-use Illuminate\Database\Eloquent\Model;
 
-class Ad extends Model
+class Ad extends Model implements JsonSerializable
 {
     public $id;
     public $name;
-    public $height;
-    public $width;
+    public $size;
     public $added_on;
     public $unique_id;
 
     protected $table = 'ads';
 
-    public function Ad($name, $size)
+    public function Ad($name, $size = null, $id = null, $added_on = null, $unique_id = null)
     {
         $this->name = $name;
-        $this->height = explode("x", $size)[0];
-        $this->width = explode("x", $size)[1];
-        $date = new DateTime();
-        $this->added_on = $date->format('c');
-        $this->unique_id = $this->getUniqueId();
+        $this->size = new Size($size);
+        if (is_null($added_on) && is_null($unique_id) && is_null($id)) {
+            $date = new DateTime();
+            $this->added_on = $date->format('c');
+            $this->unique_id = $this->getUniqueId();
+        } else {
+            $this->id = $id;
+            $this->added_on = $added_on;
+            $this->unique_id = $unique_id;
+        }
     }
 
     protected function getUniqueId()
@@ -41,14 +45,52 @@ class Ad extends Model
 
     public function insert()
     {
-        return DB::table($this->table)->insertGetId(
+        return DB::table(Ad::$table)->insertGetId(
             array(
                 'name' => $this->name,
-                'height' => $this->height,
-                'width' => $this->width,
+                'height' => $this->size->height,
+                'width' => $this->size->width,
                 'added_on' => $this->added_on,
                 'unique_id' => $this->unique_id
             )
         );
     }
-} 
+
+    public function jsonSerialize(){
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'size' => $this->size,
+            'added_on' => $this->added_on,
+            'unique_id' => $this->unique_id
+        );
+    }
+
+    public static function fromRow($row)
+    {
+        $instance = new self(
+            $row->{'name'},
+            $row->{'height'} . 'x' . $row->{'width'},
+            $row->{'id'},
+            $row->{'added_on'},
+            $row->{'unique_id'}
+        );
+
+        return $instance;
+    }
+
+    public static function getAll()
+    {
+
+        $result = DB::table('ads')->get();
+        $array = array();
+        foreach($result as $row){
+            $array[] = Ad::fromRow($row);
+        }
+        return $array;
+    }
+
+    public static function getAllSizes(){
+        return Size::getAll();
+    }
+}
