@@ -1,11 +1,63 @@
-.sidebar-wrap{
-  i.fa{
+.sidebar-wrap {
+  i.fa {
     font-size: 16px;
     display: inline-block;
     width: 45px;
   }
 }
 
-.content-wrap{
-  margin-top: 100px;
+i.fa{
+  &.right-spacing{
+    padding-right: 5px;
+    &.x2{
+      padding-right: 10px;
+    }
+  }
+  &.left-spacing{
+    padding-left: 5px;
+    &.x2{
+      padding-left: 10px;
+    }
+  }
+}
+.content-wrap {
+  margin-top: 75px;
+  width: 82%;
+  margin-left: 18%;
+}
+
+table {
+  a.btn {
+    text-decoration: none;
+  }
+}
+
+.ad-wrap {
+  .table-ads-main {
+    td{
+      &:nth-child(1){
+        width: 2%;
+        text-align: center;
+        line-height: 32px;
+      }
+      &:nth-child(2){
+        width: 30%;
+        line-height: 32px;
+      }
+      &:nth-child(3){
+        text-align: center;
+        width: 12%;
+        line-height: 32px;
+      }
+      &:nth-child(4){
+        text-align: center;
+        width: 25%;
+        line-height: 32px;
+      }
+      &:nth-child(5){
+        text-align: center;
+        width: 20%;
+      }
+    }
+  }
 }
