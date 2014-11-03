@@ -3,10 +3,8 @@
         position: fixed;
         height: 100%;
         left:0;
-        width: 22%;
-    }
-    .sidebar-nav{
-        margin-top:60px;
+        width: 18%;
+        top:60px;
     }
     .sidebar-nav .navbar .navbar-collapse {
         padding: 0;
