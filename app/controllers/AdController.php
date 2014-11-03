@@ -13,16 +13,30 @@ class AdController extends BaseController
 
         $name = Input::get('name');
         $size = Input::get('size');
+        $code = Input::get('code');
 
-        $ad = new Ad($name, $size);
-        return $ad->insert();
+        $ad = new Ad($name, $size, $code);
+        $result = $ad->insert();
+        if ($result > 0) {
+            return array(
+                'result' => 'success',
+                'id' => $result
+            );
+        } else {
+            return array(
+                'result' => 'failure',
+                'id' => -1
+            );
+        }
     }
 
     public function all()
     {
         return Ad::getAll();
     }
-    public function availableSizes(){
+
+    public function availableSizes()
+    {
         return Ad::getAllSizes();
     }
 }
