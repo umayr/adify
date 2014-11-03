@@ -1,21 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
 Route::get('/', 'HomeController@showWelcome');
 
 Route::get('/dashboard', 'DashboardController@index');
 
 // TODO: Input Validation.
+// TODO: Make it POST.
 Route::get('/ad/create', 'AdController@create');
 
-
+Route::get('/ad/all', 'AdController@all');
+Route::get('/ad/available-sizes', 'AdController@availableSizes');
