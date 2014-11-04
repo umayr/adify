@@ -6,20 +6,21 @@
   }
 }
 
-i.fa{
-  &.right-spacing{
+i.fa {
+  &.right-spacing {
     padding-right: 5px;
-    &.x2{
+    &.x2 {
       padding-right: 10px;
     }
   }
-  &.left-spacing{
+  &.left-spacing {
     padding-left: 5px;
-    &.x2{
+    &.x2 {
       padding-left: 10px;
     }
   }
 }
+
 .content-wrap {
   margin-top: 75px;
   width: 82%;
@@ -34,29 +35,26 @@ table {
 
 .ad-wrap {
   .table-ads-main {
-    td{
-      &:nth-child(1){
+    td {
+      text-align: center;
+      line-height: 32px;
+
+      &:nth-child(1) {
         width: 2%;
-        text-align: center;
-        line-height: 32px;
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         width: 30%;
-        line-height: 32px;
+        text-align: left;
       }
-      &:nth-child(3){
-        text-align: center;
+      &:nth-child(3) {
         width: 12%;
-        line-height: 32px;
       }
-      &:nth-child(4){
-        text-align: center;
+      &:nth-child(4) {
         width: 25%;
-        line-height: 32px;
       }
-      &:nth-child(5){
-        text-align: center;
+      &:nth-child(5) {
         width: 20%;
+        line-height: normal;
       }
     }
   }
