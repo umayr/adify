@@ -9,3 +9,4 @@ Thumbs.db
 /.idea/
 /public/packages/*
 /public/styles/css/app.css
+/public/index.html
