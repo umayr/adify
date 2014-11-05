@@ -24,11 +24,11 @@ class Ad extends Model implements JsonSerializable
     {
         $this->name = $name;
         $this->size = new Size($size);
+        $this->code = $code;
         if (is_null($added_on) && is_null($unique_id) && is_null($id)) {
             $date = new DateTime();
             $this->added_on = $date->format('c');
             $this->unique_id = $this->getUniqueId();
-            $this->code = $code;
         } else {
             $this->id = $id;
             $this->added_on = $added_on;
@@ -48,7 +48,17 @@ class Ad extends Model implements JsonSerializable
     public static function getAll()
     {
 
-        $result = DB::table('ads')->get(); // TODO: Join with ads_src and get code prop.
+        $result = DB::table('ads')
+            ->join('ads_src', 'ads.unique_id', '=', 'ads_src.unique_id')
+            ->select(
+                'ads.id as id',
+                'ads.name as name',
+                'ads.height as height',
+                'ads.width as width',
+                'ads.added_on as added_on',
+                'ads.unique_id as unique_id',
+                'ads_src.code as code')
+            ->get();
         $array = array();
         foreach ($result as $row) {
             $array[] = Ad::fromRow($row);
@@ -61,7 +71,7 @@ class Ad extends Model implements JsonSerializable
         $instance = new self(
             $row->{'name'},
             $row->{'height'} . 'x' . $row->{'width'},
-            null, // TODO: Add code property here.
+            $row->{'code'}, // TODO: Add code property here.
             $row->{'id'},
             $row->{'added_on'},
             $row->{'unique_id'}
@@ -73,6 +83,26 @@ class Ad extends Model implements JsonSerializable
     public static function getAllSizes()
     {
         return Size::getAll();
+    }
+
+    public static function getFromUniqueId($unique_id)
+    {
+        $row = DB::table('ads')
+            ->join('ads_src', 'ads.unique_id', '=', 'ads_src.unique_id')
+            ->select(
+                'ads.id as id',
+                'ads.name as name',
+                'ads.height as height',
+                'ads.width as width',
+                'ads.added_on as added_on',
+                'ads.unique_id as unique_id',
+                'ads_src.code as code')
+            ->where('ads.unique_id', $unique_id)
+            ->first();
+        if (!is_null($row)) {
+            return Ad::fromRow($row);
+        }
+        return $row;
     }
 
     public function insert()
@@ -102,7 +132,8 @@ class Ad extends Model implements JsonSerializable
             'name' => $this->name,
             'size' => $this->size,
             'added_on' => $this->added_on,
-            'unique_id' => $this->unique_id
+            'unique_id' => $this->unique_id,
+            'code' => $this->code
         );
     }
 }

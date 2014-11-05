@@ -13,7 +13,7 @@ class AdController extends BaseController
 
         $name = Input::get('name');
         $size = Input::get('size');
-        $code = Input::get('code');
+        $code = HTML::entities(Input::get('code'));
 
         $ad = new Ad($name, $size, $code);
         $result = $ad->insert();
