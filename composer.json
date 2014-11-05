@@ -1,6 +1,6 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "Adify",
+	"description": "Your own Ad agency",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
